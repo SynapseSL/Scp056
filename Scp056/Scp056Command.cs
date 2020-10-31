@@ -59,6 +59,7 @@ namespace Scp056
                     context.Player.Ammo5 = 999;
                     context.Player.Ammo7 = 999;
                     context.Player.Ammo9 = 999;
+                    context.Player.MaxHealth = PluginClass.Config.Scp056Health;
                     result.Message = "You succesfully swaped your Role";
                     result.State = CommandResultState.Ok;
                     return result;

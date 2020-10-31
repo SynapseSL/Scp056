@@ -80,6 +80,7 @@ namespace Scp056
             }
 
             ev.Player.ChangeRoleAtPosition(role);
+            ev.Player.MaxHealth = PluginClass.Config.Scp056Health;
             ev.Player.Ammo5 = 999;
             ev.Player.Ammo7 = 999;
             ev.Player.Ammo9 = 999;
