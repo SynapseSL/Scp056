@@ -7,11 +7,11 @@ namespace Scp056
     [PluginInformation(
         Author = "Dimenzio",
         Description = "An Plugin which adds the new Role Scp056 to the game",
-        LoadPriority = int.MinValue,
+        LoadPriority = 1,
         Name = "Scp056",
-        SynapseMajor = 2,
-        SynapseMinor = 0,
-        SynapsePatch = 0,
+        SynapseMajor = SynapseController.SynapseMajor,
+        SynapseMinor = SynapseController.SynapseMinor,
+        SynapsePatch = SynapseController.SynapsePatch,
         Version = "v.1.0.0"
         )]
     public class PluginClass : AbstractPlugin

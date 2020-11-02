@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Scp056
 {
-    [CommandInformations(
+    [CommandInformation(
         Name = "scp056",
         Aliases = new[] { "056" },
         Description = "An Command for Scp056 to swap his Roles",
