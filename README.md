@@ -2,6 +2,11 @@
 Scp056 is a Scp which fights on the side of the other Scp's and tries to kill all Humans (except for Chaos).
 His special ability is that he imitate a Human perfect which mean he can talk to Humans and even change his role so that no one would think that he is an Scp and then can he attack from behind.
 
+# RoleInformation
+RoleID: 56
+
+RoleName : Scp056
+
 # Used Keys
 Scp056 uses the [key press](https://github.com/SynapseSL/Synapse/wiki/KeyBind-System) system of Synapse which means Scp056 can quickly change his Role by pressing a key.
 | Key | Function |
