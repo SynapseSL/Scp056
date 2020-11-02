@@ -4,6 +4,7 @@ His special ability is that he imitate a Human perfect which mean he can talk to
 
 # RoleInformation
 RoleID: 56
+
 RoleName : Scp056
 
 # Used Keys
