@@ -12,7 +12,7 @@ namespace Scp056
         SynapseMajor = SynapseController.SynapseMajor,
         SynapseMinor = SynapseController.SynapseMinor,
         SynapsePatch = SynapseController.SynapsePatch,
-        Version = "v.1.0.0"
+        Version = "v.1.0.1"
         )]
     public class PluginClass : AbstractPlugin
     {
