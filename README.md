@@ -22,7 +22,7 @@ Scp056 uses the [key press](https://github.com/SynapseSL/Synapse/wiki/KeyBind-Sy
 | Alpha6 | Show's the remaining targets |
 
 # Command
-If the Player doen't have installed the key press system then he can change his Role with a command
+If the Player doesn't have installed the key press system then he can change his Role with a command
 | Command | Function |
 | :-------------: | :------ |
 | .056 | Gives a list of all 056 Command |
