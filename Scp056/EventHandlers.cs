@@ -40,7 +40,8 @@ namespace Scp056
             if(ev.Victim.RoleID == 56)
                 Map.Get.AnnounceScpDeath("0 5 6");
 
-            if (ev.Killer == ev.Victim) return;
+
+            if (ev.Killer == null || ev.Killer == ev.Victim) return;
 
             if(ev.Victim.RoleID == 56)
             {
