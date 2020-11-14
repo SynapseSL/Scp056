@@ -1,6 +1,9 @@
 # Scp056
 Scp056 is a Scp which fights on the side of the other Scp's and tries to kill all Humans (except for Chaos).
-His special ability is that he imitate a Human perfect which mean he can talk to Humans and even change his role so that no one would think that he is an Scp and then can he attack from behind.
+His special ability is that he imitate a Human perfect which mean he can talk to Humans and even change his role so that no one would think that he is an Scp.
+
+## Warning
+Currently, FirendlyFire must be active on the Server or else Scp056 cant kill some of his Enemy's!
 
 # RoleInformation
 RoleID: 56
@@ -19,7 +22,7 @@ Scp056 uses the [key press](https://github.com/SynapseSL/Synapse/wiki/KeyBind-Sy
 | Alpha6 | Show's the remaining targets |
 
 # Command
-If the Player doen't have installed the key press system then he can change his Role with a command
+If the Player doesn't have installed the key press system then he can change his Role with a command
 | Command | Function |
 | :-------------: | :------ |
 | .056 | Gives a list of all 056 Command |
