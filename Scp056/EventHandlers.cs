@@ -13,6 +13,17 @@ namespace Scp056
             Server.Get.Events.Player.PlayerKeyPressEvent += OnKeyPress;
             Server.Get.Events.Player.PlayerDeathEvent += OnDeath;
             Server.Get.Events.Round.SpawnPlayersEvent += OnSpawn;
+            Server.Get.Events.Player.PlayerCuffTargetEvent += OnCuff;
+        }
+
+        private void OnCuff(Synapse.Api.Events.SynapseEventArguments.PlayerCuffTargetEventArgs ev)
+        {
+            if(ev.Target.RoleID == 56)
+            {
+                ev.Target.Ammo5 = 0;
+                ev.Target.Ammo7 = 0;
+                ev.Target.Ammo9 = 0;
+            }
         }
 
         private void OnSpawn(Synapse.Api.Events.SynapseEventArguments.SpawnPlayersEventArgs ev)
@@ -38,7 +49,12 @@ namespace Scp056
         private void OnDeath(Synapse.Api.Events.SynapseEventArguments.PlayerDeathEventArgs ev)
         {
             if(ev.Victim.RoleID == 56)
+            {
                 Map.Get.AnnounceScpDeath("0 5 6");
+                ev.Victim.Ammo5 = 0;
+                ev.Victim.Ammo7 = 0;
+                ev.Victim.Ammo9 = 0;
+            }
 
 
             if (ev.Killer == null || ev.Killer == ev.Victim) return;
