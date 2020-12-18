@@ -37,7 +37,7 @@ namespace Scp056
             Player.Ammo7 = 999;
             Player.Ammo9 = 999;
 
-            Player.SendBroadcast(7, PluginClass.GetTranslation("spawn"));
+            Player.OpenReportWindow(PluginClass.GetTranslation("spawn"));
         }
     }
 }

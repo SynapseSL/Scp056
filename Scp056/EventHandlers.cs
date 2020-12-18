@@ -59,12 +59,12 @@ namespace Scp056
 
             if (ev.Killer == null || ev.Killer == ev.Victim) return;
 
-            if(ev.Victim.RoleID == 56)
+            if (ev.Victim.RoleID == 56)
             {
                 ev.Killer.SendBroadcast(7, PluginClass.GetTranslation("killed035"));
             }
-            else if(ev.Killer.RoleID == 56)
-                ev.Victim.SendBroadcast(7, PluginClass.GetTranslation("killedby035"));
+            else if (ev.Killer.RoleID == 56)
+                ev.Victim.OpenReportWindow(PluginClass.GetTranslation("killedby035"));
         }
 
         private void OnKeyPress(Synapse.Api.Events.SynapseEventArguments.PlayerKeyPressEventArgs ev)
