@@ -29,8 +29,8 @@ namespace Scp056
             {
                 {"spawn","<color=blue><b>You are now</b></color> <color=red><b>SCP</b></color> <color=blue><b>056</b></color>\nYour goal is it to kill all Humans\nYour special abillity is that you can use the .056 command in your Console to swap your class\nPress esc to close" },
                 {"targets","There still exist %targets% more Targets to kill for you" },
-                {"killed035","<color=blue><b>You have killed</b></color> <color=red><b>Scp</b></color> <color=black><b>056</b></color>" },
-                {"killedby035","<color=blue><b>You are killed by</b></color> <color=red><b>Scp</b></color> <color=black><b>056</b></color>" }
+                {"killed035","<color=blue><b>You have killed</b></color> <color=red><b>SCP</b></color> <color=black><b>056</b></color>" },
+                {"killedby035","<color=blue><b>You are killed by</b></color> <color=red><b>SCP</b></color> <color=black><b>056</b></color>" }
             };
             Translation.CreateTranslations(trans);
 
