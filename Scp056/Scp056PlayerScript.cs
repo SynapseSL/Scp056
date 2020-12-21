@@ -39,5 +39,7 @@ namespace Scp056
 
             Player.OpenReportWindow(PluginClass.GetTranslation("spawn"));
         }
+
+        public override void DeSpawn() => NineTailedFoxAnnouncer.CheckForZombies(Player.gameObject);
     }
 }
