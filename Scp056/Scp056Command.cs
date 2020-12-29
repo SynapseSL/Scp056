@@ -8,7 +8,7 @@ namespace Scp056
         Name = "scp056",
         Aliases = new[] { "056" },
         Description = "An Command for Scp056 to swap his Roles",
-        Permission = "none",
+        Permission = "",
         Platforms = new[] { Platform.ClientConsole },
         Usage = ".056 class d/s/c/m/g or .056 targets"
         )]
