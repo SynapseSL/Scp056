@@ -9,10 +9,10 @@ namespace Scp056
         Description = "An Plugin which adds the new Role Scp056 to the game",
         LoadPriority = 1,
         Name = "Scp056",
-        SynapseMajor = SynapseController.SynapseMajor,
-        SynapseMinor = SynapseController.SynapseMinor,
-        SynapsePatch = SynapseController.SynapsePatch,
-        Version = "v.1.1.1"
+        SynapseMajor = 2,
+        SynapseMinor = 4,
+        SynapsePatch = 1,
+        Version = "v.1.1.2"
         )]
     public class PluginClass : AbstractPlugin
     {

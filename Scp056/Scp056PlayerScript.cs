@@ -22,8 +22,8 @@ namespace Scp056
 
         public override void Spawn()
         {
+            Spawned = false;
             Player.RoleType = RoleType.FacilityGuard;
-            Timing.CallDelayed(0.5f, () => Player.Position = PluginClass.Config.Scp056SpawnPoint.Parse().Position);
 
             Player.Inventory.Clear();
 
@@ -39,6 +39,8 @@ namespace Scp056
 
             Player.OpenReportWindow(PluginClass.GetTranslation("spawn"));
         }
+
+        internal bool Spawned = false;
 
         public override void DeSpawn() => NineTailedFoxAnnouncer.CheckForZombies(Player.gameObject);
     }

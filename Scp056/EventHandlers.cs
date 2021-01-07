@@ -14,6 +14,16 @@ namespace Scp056
             Server.Get.Events.Player.PlayerDeathEvent += OnDeath;
             Server.Get.Events.Round.SpawnPlayersEvent += OnSpawn;
             Server.Get.Events.Player.PlayerCuffTargetEvent += OnCuff;
+            Server.Get.Events.Player.PlayerSetClassEvent += OnSetClass;
+        }
+
+        private void OnSetClass(Synapse.Api.Events.SynapseEventArguments.PlayerSetClassEventArgs ev)
+        {
+            if(ev.Player.RoleID == 56 && (ev.Player.CustomRole is Scp056PlayerScript script) && !script.Spawned)
+            {
+                script.Spawned = true;
+                ev.Position = PluginClass.Config.Scp056SpawnPoint.Parse().Position;
+            }
         }
 
         private void OnCuff(Synapse.Api.Events.SynapseEventArguments.PlayerCuffTargetEventArgs ev)
