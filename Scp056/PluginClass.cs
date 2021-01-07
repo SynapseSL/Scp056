@@ -6,7 +6,7 @@ namespace Scp056
 {
     [PluginInformation(
         Author = "Dimenzio",
-        Description = "An Plugin which adds the new Role Scp056 to the game",
+        Description = "A Plugin which adds the new Role Scp056 to the game",
         LoadPriority = 1,
         Name = "Scp056",
         SynapseMajor = 2,
