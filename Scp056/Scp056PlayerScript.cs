@@ -42,6 +42,10 @@ namespace Scp056
 
         internal bool Spawned = false;
 
-        public override void DeSpawn() => NineTailedFoxAnnouncer.CheckForZombies(Player.gameObject);
+        public override void DeSpawn()
+        {
+            if (RoleType.Scp079.GetPlayers().Count > 0)
+                NineTailedFoxAnnouncer.CheckForZombies(Player.gameObject);
+        }
     }
 }
