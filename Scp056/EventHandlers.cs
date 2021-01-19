@@ -47,7 +47,13 @@ namespace Scp056
                     if (playerspair.Count() == 0)
                         return;
 
-                    var pair = playerspair.ElementAt(UnityEngine.Random.Range(0, playerspair.Count()));
+                    System.Collections.Generic.KeyValuePair<Player, int> pair;
+
+
+                    if (PluginClass.Config.ReplaceScp && PluginClass.Config.Replace079 && playerspair.Count() == 2 && playerspair.Any(x => x.Value == (int)RoleType.Scp079))
+                        pair = playerspair.FirstOrDefault(x => x.Value == (int)RoleType.Scp079);
+                    else
+                        pair = playerspair.ElementAt(UnityEngine.Random.Range(0, playerspair.Count()));
 
                     ev.SpawnPlayers[pair.Key] = 56;
                 }
@@ -71,10 +77,10 @@ namespace Scp056
 
             if (ev.Victim.RoleID == 56)
             {
-                ev.Killer.SendBroadcast(7, PluginClass.GetTranslation("killed035"));
+                ev.Killer.SendBroadcast(7, PluginClass.PluginTranslation.ActiveTranslation.Killed056);
             }
             else if (ev.Killer.RoleID == 56)
-                ev.Victim.OpenReportWindow(PluginClass.GetTranslation("killedby035"));
+                ev.Victim.OpenReportWindow(PluginClass.PluginTranslation.ActiveTranslation.KilledBy056);
         }
 
         private void OnKeyPress(Synapse.Api.Events.SynapseEventArguments.PlayerKeyPressEventArgs ev)
@@ -100,7 +106,7 @@ namespace Scp056
 
                 case KeyCode.Alpha6:
                     var targets = Server.Get.GetPlayers(x => x.RealTeam == Team.MTF || x.RealTeam == Team.CDP || x.RealTeam == Team.RSC).Count;
-                    ev.Player.SendBroadcast(7, PluginClass.GetTranslation("targets").Replace("%targets%",targets.ToString()));
+                    ev.Player.SendBroadcast(7, PluginClass.PluginTranslation.ActiveTranslation.Targets.Replace("%targets%",targets.ToString()));
                     return;
 
                 default: return;

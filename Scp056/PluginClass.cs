@@ -1,6 +1,7 @@
 ﻿using Synapse;
 using Synapse.Api.Plugin;
 using System.Collections.Generic;
+using Synapse.Translation;
 
 namespace Scp056
 {
@@ -10,9 +11,9 @@ namespace Scp056
         LoadPriority = 1,
         Name = "Scp056",
         SynapseMajor = 2,
-        SynapseMinor = 4,
-        SynapsePatch = 1,
-        Version = "v.1.1.2"
+        SynapseMinor = 5,
+        SynapsePatch = 0,
+        Version = "v.1.1.3"
         )]
     public class PluginClass : AbstractPlugin
     {
@@ -21,22 +22,23 @@ namespace Scp056
         [Synapse.Api.Plugin.Config(section = "Scp056")]
         public static Config Config;
 
+        [SynapseTranslation]
+        public static SynapseTranslation<PluginTranslation> PluginTranslation;
+
         public override void Load()
         {
             Server.Get.RoleManager.RegisterCustomRole<Scp056PlayerScript>();
             pclass = this;
-            var trans = new Dictionary<string, string>
+            PluginTranslation.AddTranslation(new Scp056.PluginTranslation());
+            PluginTranslation.AddTranslation(new Scp056.PluginTranslation
             {
-                {"spawn","<color=blue><b>You are now</b></color> <color=red><b>SCP</b></color> <color=blue><b>056</b></color>\nYour goal is it to kill all Humans\nYour special abillity is that you can use the .056 command in your Console to swap your class\nPress esc to close" },
-                {"targets","There still exist %targets% more Targets to kill for you" },
-                {"killed035","<color=blue><b>You have killed</b></color> <color=red><b>SCP</b></color> <color=black><b>056</b></color>" },
-                {"killedby035","<color=blue><b>You are killed by</b></color> <color=red><b>SCP</b></color> <color=black><b>056</b></color>" }
-            };
-            Translation.CreateTranslations(trans);
+                Spawn = "<color=blue><b>Du bist jetzt</b></color> <color=red><b>SCP</b></color> <color=blue><b>056</b></color>\\nDein Ziel ist es alle Menschen zu töten\\nDeine besondere Fähigkeit ist es dass du mit dem .056 Command in der ö-Konsole deine Aussehen ändern kannst\\nDrücke Esc um das Fenster zu schließen",
+                Targets = "Es existieren noch %targets% Lebewesen welche du töten musst",
+                Killed056 = "<color=blue><b>Du hast</b></color> <color=red><b>SCP</b></color> <color=black><b>056 <color=blue>getötet</color></b></color>",
+                KilledBy056 = "<color=blue><b>Du wurdest umgebracht von</b></color> <color=red><b>SCP</b></color> <color=black><b>056</b></color>",
+            }, "GERMAN");
 
             new EventHandlers();
         }
-
-        internal static string GetTranslation(string key) => pclass.Translation.GetTranslation(key);
     }
 }

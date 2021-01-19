@@ -32,5 +32,8 @@ namespace Scp056
 
         [Description("If Enabled a Scp will become Scp056.If Disabled a Human will become Scp056")]
         public bool ReplaceScp = false;
+
+        [Description("Prevnts the scenario that only 056 and 079 spawns together")]
+        public bool Replace079 = true;
     }
 }

@@ -66,7 +66,7 @@ namespace Scp056
 
                 case "targets":
                     var targets = Server.Get.GetPlayers(x => x.RealTeam == Team.MTF || x.RealTeam == Team.CDP || x.RealTeam == Team.RSC).Count;
-                    result.Message = PluginClass.GetTranslation("targets").Replace("%targets%", targets.ToString());
+                    result.Message = PluginClass.PluginTranslation.ActiveTranslation.Targets.Replace("%targets%", targets.ToString());
                     result.State = CommandResultState.Ok;
                     return result;
 
