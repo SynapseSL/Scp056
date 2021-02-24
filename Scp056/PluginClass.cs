@@ -1,6 +1,5 @@
 ﻿using Synapse;
 using Synapse.Api.Plugin;
-using System.Collections.Generic;
 using Synapse.Translation;
 
 namespace Scp056
@@ -12,13 +11,11 @@ namespace Scp056
         Name = "Scp056",
         SynapseMajor = 2,
         SynapseMinor = 5,
-        SynapsePatch = 0,
+        SynapsePatch = 2,
         Version = "v.1.1.3"
         )]
     public class PluginClass : AbstractPlugin
     {
-        private static PluginClass pclass;
-
         [Synapse.Api.Plugin.Config(section = "Scp056")]
         public static Config Config;
 
@@ -28,7 +25,6 @@ namespace Scp056
         public override void Load()
         {
             Server.Get.RoleManager.RegisterCustomRole<Scp056PlayerScript>();
-            pclass = this;
             PluginTranslation.AddTranslation(new Scp056.PluginTranslation());
             PluginTranslation.AddTranslation(new Scp056.PluginTranslation
             {
@@ -37,6 +33,7 @@ namespace Scp056
                 Killed056 = "<color=blue><b>Du hast</b></color> <color=red><b>SCP</b></color> <color=black><b>056 <color=blue>getötet</color></b></color>",
                 KilledBy056 = "<color=blue><b>Du wurdest umgebracht von</b></color> <color=red><b>SCP</b></color> <color=black><b>056</b></color>",
             }, "GERMAN");
+            //Feel free to ask me or create a PR in order to add more languages
 
             new EventHandlers();
         }

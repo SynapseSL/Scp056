@@ -1,5 +1,4 @@
-﻿using MEC;
-using Synapse;
+﻿using Synapse;
 using Synapse.Api;
 using System.Linq;
 using UnityEngine;
@@ -15,15 +14,18 @@ namespace Scp056
             Server.Get.Events.Round.SpawnPlayersEvent += OnSpawn;
             Server.Get.Events.Player.PlayerCuffTargetEvent += OnCuff;
             Server.Get.Events.Player.PlayerSetClassEvent += OnSetClass;
+            Server.Get.Events.Player.PlayerDropAmmoEvent += DropAmmo;
+        }
+
+        private void DropAmmo(Synapse.Api.Events.SynapseEventArguments.PlayerDropAmmoEventArgs ev)
+        {
+            if (ev.Player.RoleID == 56) ev.Allow = false;
         }
 
         private void OnSetClass(Synapse.Api.Events.SynapseEventArguments.PlayerSetClassEventArgs ev)
         {
-            if(ev.Player.RoleID == 56 && (ev.Player.CustomRole is Scp056PlayerScript script) && !script.Spawned)
-            {
-                script.Spawned = true;
+            if(ev.Player.RoleID == 56)
                 ev.Position = PluginClass.Config.Scp056SpawnPoint.Parse().Position;
-            }
         }
 
         private void OnCuff(Synapse.Api.Events.SynapseEventArguments.PlayerCuffTargetEventArgs ev)
@@ -38,9 +40,9 @@ namespace Scp056
 
         private void OnSpawn(Synapse.Api.Events.SynapseEventArguments.SpawnPlayersEventArgs ev)
         {
-            if (Server.Get.GetPlayers(x => !x.OverWatch).Count >= PluginClass.Config.RequiredPlayers)
+            if (ev.SpawnPlayers.Count >= PluginClass.Config.RequiredPlayers)
             {
-                if (UnityEngine.Random.Range(1f, 100f) < PluginClass.Config.SpawnChanche)
+                if (UnityEngine.Random.Range(1f, 100f) <= PluginClass.Config.SpawnChanche)
                 {
                     var playerspair = PluginClass.Config.ReplaceScp ? ev.SpawnPlayers.Where(x => IsScpID(x.Value)) : ev.SpawnPlayers.Where(x => !IsScpID(x.Value));
 
@@ -64,30 +66,16 @@ namespace Scp056
 
         private void OnDeath(Synapse.Api.Events.SynapseEventArguments.PlayerDeathEventArgs ev)
         {
-            if(ev.Victim.RoleID == 56)
-            {
-                Map.Get.AnnounceScpDeath("0 5 6");
-                ev.Victim.Ammo5 = 0;
-                ev.Victim.Ammo7 = 0;
-                ev.Victim.Ammo9 = 0;
-            }
-
-
             if (ev.Killer == null || ev.Killer == ev.Victim) return;
 
             if (ev.Victim.RoleID == 56)
-            {
                 ev.Killer.SendBroadcast(7, PluginClass.PluginTranslation.ActiveTranslation.Killed056);
-            }
             else if (ev.Killer.RoleID == 56)
                 ev.Victim.OpenReportWindow(PluginClass.PluginTranslation.ActiveTranslation.KilledBy056);
         }
 
         private void OnKeyPress(Synapse.Api.Events.SynapseEventArguments.PlayerKeyPressEventArgs ev)
         {
-#if DEBUG
-            if(ev.KeyCode == KeyCode.Alpha7) ev.Player.CustomRole = new Scp056PlayerScript();
-#endif
             if (ev.Player.RoleID != 56) return;
 
             RoleType role;
@@ -112,11 +100,7 @@ namespace Scp056
                 default: return;
             }
 
-            ev.Player.ChangeRoleAtPosition(role);
-            ev.Player.MaxHealth = PluginClass.Config.Scp056Health;
-            ev.Player.Ammo5 = 999;
-            ev.Player.Ammo7 = 999;
-            ev.Player.Ammo9 = 999;
+            (ev.Player.CustomRole as Scp056PlayerScript).SwapRole(role);
         }
     }
 }

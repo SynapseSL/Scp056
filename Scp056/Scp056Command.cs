@@ -55,11 +55,7 @@ namespace Scp056
                             return result;
                     }
 
-                    context.Player.ChangeRoleAtPosition(role);
-                    context.Player.Ammo5 = 999;
-                    context.Player.Ammo7 = 999;
-                    context.Player.Ammo9 = 999;
-                    context.Player.MaxHealth = PluginClass.Config.Scp056Health;
+                    (context.Player.CustomRole as Scp056PlayerScript).SwapRole(role);
                     result.Message = "You succesfully swaped your Role";
                     result.State = CommandResultState.Ok;
                     return result;
