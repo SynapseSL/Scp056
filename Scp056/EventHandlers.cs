@@ -25,7 +25,10 @@ namespace Scp056
         private void OnSetClass(Synapse.Api.Events.SynapseEventArguments.PlayerSetClassEventArgs ev)
         {
             if(ev.Player.RoleID == 56)
+            {
                 ev.Position = PluginClass.Config.Scp056SpawnPoint.Parse().Position;
+                ev.Items = PluginClass.Config.Items.Select(x => x.Parse()).ToList();
+            }
         }
 
         private void OnCuff(Synapse.Api.Events.SynapseEventArguments.PlayerCuffTargetEventArgs ev)

@@ -19,11 +19,6 @@ namespace Scp056
         {
             Player.RoleType = RoleType.FacilityGuard;
 
-            Player.Inventory.Clear();
-
-            foreach (var item in PluginClass.Config.Items)
-                Player.Inventory.AddItem(item.Parse());
-
             Player.Health = PluginClass.Config.Scp056Health;
             Player.MaxHealth = PluginClass.Config.Scp056Health;
 
