@@ -40,6 +40,7 @@ If the Player doesn't have installed the key press system then he can change his
 | spawnchanche | Float | The chanche that Scp056 spawns |
 | requiredPlayers | Integer | The Amount of Players needed before Scp056 can spawn|
 | replacescp | Boolean | If set to true Scp056 will be spawned instead of an Scp |
+| replace079 | Boolean | If set to true can 056 not spawn alone with 079 |
 
 Default Configuration for Scp056
 ```
@@ -80,16 +81,6 @@ items:
 spawnChanche: 50
 requiredPlayers: 3
 replaceScp: false
+replace079 : true
 }
-```
-
-# Translation
-Scp056 also supports the Translation System of Synapse so that you can easily change the Translation of the Plugin
-
-Default:
-```
-<color=blue><b>You are now</b></color> <color=red><b>Scp</b></color> <color=blue><b>056</b></color>
-There still exist %targets% more Targets to kill for you
-<color=blue><b>You have killed</b></color> <color=red><b>Scp</b></color> <color=black><b>056</b></color>
-<color=blue><b>You are killed by</b></color> <color=red><b>Scp</b></color> <color=black><b>056</b></color>
 ```
