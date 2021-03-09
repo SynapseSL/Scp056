@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Scp056
 {
-    public class Config : AbstractConfigSection
+    public class PluginConfig : AbstractConfigSection
     {
         [Description("The MapPoint where Scp056 should Spawn")]
         public SerializedMapPoint Scp056SpawnPoint = new SerializedMapPoint("HCZ_Room3ar", -1.792f, 1.330017f, -0.004005589f);

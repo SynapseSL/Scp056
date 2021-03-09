@@ -11,13 +11,13 @@ namespace Scp056
         Name = "Scp056",
         SynapseMajor = 2,
         SynapseMinor = 5,
-        SynapsePatch = 2,
+        SynapsePatch = 3,
         Version = "v.1.1.3"
         )]
     public class PluginClass : AbstractPlugin
     {
-        [Synapse.Api.Plugin.Config(section = "Scp056")]
-        public static Config Config;
+        [Config(section = "Scp056")]
+        public static PluginConfig Config;
 
         [SynapseTranslation]
         public static SynapseTranslation<PluginTranslation> PluginTranslation;
