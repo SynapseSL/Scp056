@@ -40,8 +40,8 @@ namespace Scp056
                     {
                         case "d": role = RoleType.ClassD; break;
                         case "s": role = RoleType.Scientist; break;
-                        case "c": role = RoleType.ChaosInsurgency; break;
-                        case "m": role = RoleType.NtfLieutenant; break;
+                        case "c": role = RoleType.ChaosRifleman; break;
+                        case "m": role = RoleType.NtfSergeant; break;
                         case "g": role = RoleType.FacilityGuard; break;
 
                         default:

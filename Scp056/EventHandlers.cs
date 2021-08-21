@@ -1,6 +1,7 @@
-﻿using Synapse;
+﻿using System.Linq;
+using Synapse;
 using Synapse.Api;
-using System.Linq;
+using Synapse.Api.Enum;
 using UnityEngine;
 
 namespace Scp056
@@ -35,9 +36,8 @@ namespace Scp056
         {
             if(ev.Target.RoleID == 56)
             {
-                ev.Target.Ammo5 = 0;
-                ev.Target.Ammo7 = 0;
-                ev.Target.Ammo9 = 0;
+                foreach (var enumType in (AmmoType[])typeof(AmmoType).GetEnumValues())
+                    ev.Target.AmmoBox[enumType] = 0;
             }
         }
 
@@ -91,9 +91,9 @@ namespace Scp056
 
                 case KeyCode.Alpha3: role = RoleType.FacilityGuard; break;
 
-                case KeyCode.Alpha4: role = RoleType.NtfLieutenant; break;
+                case KeyCode.Alpha4: role = RoleType.NtfSergeant; break;
 
-                case KeyCode.Alpha5: role = RoleType.ChaosInsurgency; break;
+                case KeyCode.Alpha5: role = RoleType.ChaosRifleman; break;
 
                 case KeyCode.Alpha6:
                     var targets = Server.Get.GetPlayers(x => x.RealTeam == Team.MTF || x.RealTeam == Team.CDP || x.RealTeam == Team.RSC).Count;

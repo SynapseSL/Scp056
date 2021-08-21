@@ -19,9 +19,9 @@ namespace Scp056
         [Description("The Items Scp056 spawns with")]
         public List<SerializedItem> Items = new List<SerializedItem>()
         {
-            new SerializedItem((int)ItemType.GunMP7,35,0,0,0,Vector3.one),
-            new SerializedItem((int)ItemType.Medkit,35,0,0,0,Vector3.one),
-            new SerializedItem((int)ItemType.KeycardGuard,35,0,0,0,Vector3.one),
+            new SerializedItem((int)ItemType.GunFSP9,25,0,Vector3.one),
+            new SerializedItem((int)ItemType.Medkit,0,0,Vector3.one),
+            new SerializedItem((int)ItemType.KeycardGuard,0,0,Vector3.one),
         };
 
         [Description("The Chanche of which Scp056 spawns")]
