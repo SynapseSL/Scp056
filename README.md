@@ -56,31 +56,25 @@ scp056Health: 150
 items:
 - iD: 23
   durabillity: 35
-  sight: 0
-  barrel: 0
-  other: 0
+  weaponAttachments: 0
   xSize: 1
   ySize: 1
   zSize: 1
 - iD: 14
   durabillity: 35
-  sight: 0
-  barrel: 0
-  other: 0
+  weaponAttachments: 0
   xSize: 1
   ySize: 1
   zSize: 1
 - iD: 4
   durabillity: 35
-  sight: 0
-  barrel: 0
-  other: 0
+  weaponAttachments: 0
   xSize: 1
   ySize: 1
   zSize: 1
 spawnChanche: 50
 requiredPlayers: 3
 replaceScp: false
-replace079 : true
+replace079: true
 }
 ```
