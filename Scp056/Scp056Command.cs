@@ -1,6 +1,6 @@
-﻿using Synapse;
+﻿using System.Linq;
+using Synapse;
 using Synapse.Command;
-using System.Linq;
 
 namespace Scp056
 {
@@ -10,7 +10,8 @@ namespace Scp056
         Description = "An Command for Scp056 to swap his Roles",
         Permission = "",
         Platforms = new[] { Platform.ClientConsole },
-        Usage = ".056 class d/s/c/m/g or .056 targets"
+        Usage = ".056 class d/s/c/m/g or .056 targets",
+        Arguments = new[] { "Class", "Role" }
         )]
     public class Scp056Command : ISynapseCommand
     {

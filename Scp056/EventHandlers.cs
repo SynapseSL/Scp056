@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Synapse;
 using Synapse.Api;
 using Synapse.Api.Enum;
@@ -16,6 +17,17 @@ namespace Scp056
             Server.Get.Events.Player.PlayerCuffTargetEvent += OnCuff;
             Server.Get.Events.Player.PlayerSetClassEvent += OnSetClass;
             Server.Get.Events.Player.PlayerDropAmmoEvent += DropAmmo;
+            Server.Get.Events.Player.PlayerReloadEvent += ReloadWeapon;
+        }
+
+        private void ReloadWeapon(Synapse.Api.Events.SynapseEventArguments.PlayerReloadEventArgs ev)
+        {
+            if (ev.Player.RoleID == 56)
+                foreach (var ammo in (AmmoType[])Enum.GetValues(typeof(AmmoType)))
+                {
+                    ev.Player.AmmoBox[ammo] = 100;
+                    MEC.Timing.CallDelayed(5f, () => ev.Player.AmmoBox[ammo] = 0);
+                }
         }
 
         private void DropAmmo(Synapse.Api.Events.SynapseEventArguments.PlayerDropAmmoEventArgs ev)
@@ -85,17 +97,17 @@ namespace Scp056
 
             switch (ev.KeyCode)
             {
-                case KeyCode.Alpha1: role = RoleType.ClassD; break;
+                case KeyCode.Alpha5: role = RoleType.ClassD; break;
 
-                case KeyCode.Alpha2: role = RoleType.Scientist; break;
+                case KeyCode.Alpha6: role = RoleType.Scientist; break;
 
-                case KeyCode.Alpha3: role = RoleType.FacilityGuard; break;
+                case KeyCode.Alpha7: role = RoleType.FacilityGuard; break;
 
-                case KeyCode.Alpha4: role = RoleType.NtfSergeant; break;
+                case KeyCode.Alpha8: role = RoleType.NtfSergeant; break;
 
-                case KeyCode.Alpha5: role = RoleType.ChaosRifleman; break;
+                case KeyCode.Alpha9: role = RoleType.ChaosRifleman; break;
 
-                case KeyCode.Alpha6:
+                case KeyCode.Alpha0:
                     var targets = Server.Get.GetPlayers(x => x.RealTeam == Team.MTF || x.RealTeam == Team.CDP || x.RealTeam == Team.RSC).Count;
                     ev.Player.SendBroadcast(7, PluginClass.PluginTranslation.ActiveTranslation.Targets.Replace("%targets%",targets.ToString()));
                     return;
