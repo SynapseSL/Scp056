@@ -25,7 +25,7 @@ namespace Scp056
             if (ev.Player.RoleID == 56)
                 foreach (var ammo in (AmmoType[])Enum.GetValues(typeof(AmmoType)))
                 {
-                    ev.Player.AmmoBox[ammo] = 100;
+                    ev.Player.AmmoBox[ammo] = InventorySystem.Configs.InventoryLimits.GetAmmoLimit(null, (ItemType)ammo);
                     MEC.Timing.CallDelayed(5f, () => ev.Player.AmmoBox[ammo] = 0);
                 }
         }
