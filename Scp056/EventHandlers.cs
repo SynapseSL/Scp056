@@ -1,8 +1,8 @@
-﻿using System;
-using System.Linq;
-using Synapse;
+﻿using Synapse;
 using Synapse.Api;
 using Synapse.Api.Enum;
+using System;
+using System.Linq;
 using UnityEngine;
 
 namespace Scp056

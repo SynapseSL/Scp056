@@ -10,9 +10,9 @@ namespace Scp056
         LoadPriority = 1,
         Name = "Scp056",
         SynapseMajor = 2,
-        SynapseMinor = 7,
-        SynapsePatch = 1,
-        Version = "v.1.1.5"
+        SynapseMinor = 8,
+        SynapsePatch = 3,
+        Version = "v.1.1.6"
         )]
     public class PluginClass : AbstractPlugin
     {
