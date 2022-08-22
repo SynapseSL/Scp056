@@ -1,83 +1,103 @@
-﻿using System.Linq;
-using Synapse;
-using Synapse.Command;
+﻿using Neuron.Core.Meta;
+using Neuron.Modules.Commands;
+using Neuron.Modules.Commands.Command;
+using Synapse3.SynapseModule.Command;
+using Synapse3.SynapseModule.Player;
 
-namespace Scp056
+namespace Scp056;
+
+[Automatic]
+[SynapseCommand(
+    CommandName = "Scp056",
+    Aliases = new[] { "056" },
+    Description = "A Command for SCP-056 to swap his Role",
+    Platforms = new[] { CommandPlatform.PlayerConsole }
+)]
+public class Scp056Command : SynapseCommand
 {
-    [CommandInformation(
-        Name = "scp056",
-        Aliases = new[] { "056" },
-        Description = "An Command for Scp056 to swap his Roles",
-        Permission = "",
-        Platforms = new[] { Platform.ClientConsole },
-        Usage = ".056 class d/s/c/m/g or .056 targets",
-        Arguments = new[] { "Class", "Role" }
-        )]
-    public class Scp056Command : ISynapseCommand
+    private readonly PlayerService _player;
+    private readonly Scp056Plugin _plugin;
+
+    public Scp056Command(PlayerService player, Scp056Plugin plugin)
     {
-        public CommandResult Execute(CommandContext context)
+        _player = player;
+        _plugin = plugin;
+    }
+
+    public override void Execute(SynapseContext context, ref CommandResult result)
+    {
+        if (context.Arguments.Length < 1)
+            context.Arguments = new[] { "" };
+
+        if (context.Player.RoleID != 56)
         {
-            var result = new CommandResult();
+            result.Response = "You are Not Scp056";
+            result.StatusCode = CommandStatusCode.Forbidden;
+            return;
+        }
 
-            if (context.Arguments.Count < 1)
-                context.Arguments = new System.ArraySegment<string>(new[] { "" });
+        switch (context.Arguments[0].ToLower())
+        {
+            case "class":
+                if (context.Arguments.Length < 2)
+                    context.Arguments = new[] { "class", "" };
 
-            if(context.Player.RoleID != 56)
-            {
-                result.Message = "You are Not Scp056";
-                result.State = CommandResultState.Error;
-                return result;
-            }
+                RoleType role;
 
-            switch (context.Arguments.First().ToLower())
-            {
-                case "class":
-                    if(context.Arguments.Count < 2)
-                        context.Arguments = new System.ArraySegment<string>(new[] { "class","" });
+                switch (context.Arguments[1].ToLower())
+                {
+                    case "d":
+                        role = RoleType.ClassD;
+                        break;
+                    case "s":
+                        role = RoleType.Scientist;
+                        break;
+                    case "c":
+                        role = RoleType.ChaosRifleman;
+                        break;
+                    case "m":
+                        role = RoleType.NtfSergeant;
+                        break;
+                    case "g":
+                        role = RoleType.FacilityGuard;
+                        break;
 
-                    RoleType role;
+                    default:
+                        result.Response = "You have to enter a valid letter" +
+                                          "\nD => D-Personnel" +
+                                          "\nS => Scientist" +
+                                          "\nC => Chaos" +
+                                          "\nM => Mtf Lieutnant" +
+                                          "\nG => Guard";
+                        result.StatusCode = CommandStatusCode.Ok;
+                        return;
+                }
 
-                    switch (context.Arguments.ElementAt(1).ToLower())
-                    {
-                        case "d": role = RoleType.ClassD; break;
-                        case "s": role = RoleType.Scientist; break;
-                        case "c": role = RoleType.ChaosRifleman; break;
-                        case "m": role = RoleType.NtfSergeant; break;
-                        case "g": role = RoleType.FacilityGuard; break;
+                (context.Player.CustomRole as Scp056PlayerScript)?.SwapRole(role);
+                result.Response = "You successfully swapped your Role";
+                result.StatusCode = CommandStatusCode.Ok;
+                return;
 
-                        default:
-                            result.Message = "You have to enter a valid letter" +
-                                "\nD => D-Personnel" +
-                                "\nS => Scientist" +
-                                "\nC => Chaos" +
-                                "\nM => Mtf Lieutnant" +
-                                "\nG => Guard";
-                            result.State = CommandResultState.Error;
-                            return result;
-                    }
+            case "targets":
+                var targets = _player
+                    .GetPlayers(x => x.TeamID is (uint)Team.MTF or (uint)Team.CDP or (uint)Team.RSC).Count;
 
-                    (context.Player.CustomRole as Scp056PlayerScript).SwapRole(role);
-                    result.Message = "You succesfully swaped your Role";
-                    result.State = CommandResultState.Ok;
-                    return result;
+                result.Response = _plugin.Translation.Get(context.Player).Targets
+                    .Replace("%targets%", targets.ToString());
 
-                case "targets":
-                    var targets = Server.Get.GetPlayers(x => x.RealTeam == Team.MTF || x.RealTeam == Team.CDP || x.RealTeam == Team.RSC).Count;
-                    result.Message = PluginClass.PluginTranslation.ActiveTranslation.Targets.Replace("%targets%", targets.ToString());
-                    result.State = CommandResultState.Ok;
-                    return result;
+                result.StatusCode = CommandStatusCode.Ok;
+                return;
 
-                default:
-                    result.State = CommandResultState.Error;
-                    result.Message = "Please type one of these 056 commands in:" +
-                        "\n.056 class D => Changes your Role to a D-Personnel" +
-                        "\n.056 class S => Changes your Role to a Scientist" +
-                        "\n.056 class C => Changes your Role to a Chaos" +
-                        "\n.056 class M => Changes your Role to a Mtf Lieutnant" +
-                        "\n.056 class G => Changes your Role to a Guard" +
-                        "\n.056 targets displays you how many targets are left";
-                    return result;
-            }
+            default:
+                result.StatusCode = CommandStatusCode.Ok;
+                result.Response = "Please type one of these 056 commands in:" +
+                                  "\n.056 class D => Changes your Role to a D-Personnel" +
+                                  "\n.056 class S => Changes your Role to a Scientist" +
+                                  "\n.056 class C => Changes your Role to a Chaos" +
+                                  "\n.056 class M => Changes your Role to a Mtf Lieutnant" +
+                                  "\n.056 class G => Changes your Role to a Guard" +
+                                  "\n.056 targets displays you how many targets are left";
+                return;
         }
     }
-}
+}  
