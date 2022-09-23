@@ -2,6 +2,7 @@
 using Neuron.Core.Meta;
 using Synapse3.SynapseModule.Enums;
 using Synapse3.SynapseModule.Map;
+using Synapse3.SynapseModule.Player;
 using Synapse3.SynapseModule.Role;
 
 namespace Scp056;
@@ -12,7 +13,7 @@ namespace Scp056;
     Id = 56,
     TeamId = (int)Team.SCP
 )]
-public class Scp056PlayerScript : SynapseRole
+public class Scp056PlayerScript : SynapseAbstractRole
 {
     private readonly Scp056Plugin _plugin;
     private readonly CassieService _cassie;
@@ -27,29 +28,28 @@ public class Scp056PlayerScript : SynapseRole
 
     public override List<uint> GetFriendsID() => _plugin.Config.Ff ? new List<uint>() : new List<uint> { (uint)Team.SCP };
 
-    public override void SpawnPlayer(bool spawnLite)
+    protected override IAbstractRoleConfig GetConfig() => _plugin.Config.Scp056Configuration;
+
+    protected override void OnSpawn(IAbstractRoleConfig config)
     {
-        if(spawnLite) return;
-        
-        Player.ChangeRoleLite(RoleType.FacilityGuard);
-        Player.Position = _plugin.Config.Scp056SpawnPoint.GetMapPosition();
-        var rot = _plugin.Config.Scp056SpawnPoint.GetMapRotation();
-        Player.PlayerRotation = new PlayerMovementSync.PlayerRotation(rot.x, rot.y);
-        Player.Health = _plugin.Config.Scp056Health;
-        Player.MaxHealth = _plugin.Config.Scp056Health;
-        _plugin.Config.Inventory.Apply(Player);
         Player.SendWindowMessage(_plugin.Translation.Get(Player).Spawn.Replace("\\n", "\n"));
+        Player.FakeRoleManager.VisibleRole = _plugin.Config.Scp056Configuration.VisibleRole;
+        RemoveCustomDisplay();
     }
 
-    public override void DeSpawn(DespawnReason reason)
+    protected override void OnDeSpawn(DeSpawnReason reason)
     {
-        if (reason is DespawnReason.Death or DespawnReason.Leave)
+        if (reason is DeSpawnReason.Death or DeSpawnReason.Leave)
             _cassie.AnnounceScpDeath("056", CassieSettings.DisplayText, CassieSettings.Glitched, CassieSettings.Noise);
+
+        Player.FakeRoleManager.VisibleRole = RoleType.None;
     }
 
     public void SwapRole(RoleType role)
     {
-        Player.ChangeRoleLite(role);
-        Player.MaxHealth = _plugin.Config.Scp056Health;
+        if (!_plugin.Config.AllowedRoles.Contains(role)) return;
+        
+        Player.FakeRoleManager.VisibleRole = role;
+        Player.SendHint(_plugin.Translation.ChangedRole.Replace("%role%", role.ToString()));
     }
 }

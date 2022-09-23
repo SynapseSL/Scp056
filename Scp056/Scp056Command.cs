@@ -1,4 +1,5 @@
-﻿using Neuron.Core.Meta;
+﻿using System;
+using Neuron.Core.Meta;
 using Neuron.Modules.Commands;
 using Neuron.Modules.Commands.Command;
 using Synapse3.SynapseModule.Command;
@@ -31,53 +32,13 @@ public class Scp056Command : SynapseCommand
 
         if (context.Player.RoleID != 56)
         {
-            result.Response = "You are Not Scp056";
+            result.Response = _plugin.Translation.Get(context.Player).NotScp056;
             result.StatusCode = CommandStatusCode.Forbidden;
             return;
         }
 
         switch (context.Arguments[0].ToLower())
         {
-            case "class":
-                if (context.Arguments.Length < 2)
-                    context.Arguments = new[] { "class", "" };
-
-                RoleType role;
-
-                switch (context.Arguments[1].ToLower())
-                {
-                    case "d":
-                        role = RoleType.ClassD;
-                        break;
-                    case "s":
-                        role = RoleType.Scientist;
-                        break;
-                    case "c":
-                        role = RoleType.ChaosRifleman;
-                        break;
-                    case "m":
-                        role = RoleType.NtfSergeant;
-                        break;
-                    case "g":
-                        role = RoleType.FacilityGuard;
-                        break;
-
-                    default:
-                        result.Response = "You have to enter a valid letter" +
-                                          "\nD => D-Personnel" +
-                                          "\nS => Scientist" +
-                                          "\nC => Chaos" +
-                                          "\nM => Mtf Lieutnant" +
-                                          "\nG => Guard";
-                        result.StatusCode = CommandStatusCode.Ok;
-                        return;
-                }
-
-                (context.Player.CustomRole as Scp056PlayerScript)?.SwapRole(role);
-                result.Response = "You successfully swapped your Role";
-                result.StatusCode = CommandStatusCode.Ok;
-                return;
-
             case "targets":
                 var targets = _player
                     .GetPlayers(x => x.TeamID is (uint)Team.MTF or (uint)Team.CDP or (uint)Team.RSC).Count;
@@ -87,16 +48,28 @@ public class Scp056Command : SynapseCommand
 
                 result.StatusCode = CommandStatusCode.Ok;
                 return;
+            
+            case "class":
+                if (context.Arguments.Length < 2)
+                    context.Arguments = new[] { "class", "" };
+
+                if (Enum.TryParse<RoleType>(context.Arguments[1], out var role))
+                {
+                    (context.Player.CustomRole as Scp056PlayerScript)?.SwapRole(role);
+                    result.Response = _plugin.Translation.Get(context.Player).ChangedRole
+                        .Replace("%role%", role.ToString());
+                    result.StatusCode = CommandStatusCode.Ok;
+                    return;
+                }
+                goto default;
 
             default:
+                result.Response = _plugin.Translation.SelectRole;
+                foreach (var possibleRole in _plugin.Config.AllowedRoles)
+                {
+                    result.Response += "\n.056 class " + possibleRole;
+                }
                 result.StatusCode = CommandStatusCode.Ok;
-                result.Response = "Please type one of these 056 commands in:" +
-                                  "\n.056 class D => Changes your Role to a D-Personnel" +
-                                  "\n.056 class S => Changes your Role to a Scientist" +
-                                  "\n.056 class C => Changes your Role to a Chaos" +
-                                  "\n.056 class M => Changes your Role to a Mtf Lieutnant" +
-                                  "\n.056 class G => Changes your Role to a Guard" +
-                                  "\n.056 targets displays you how many targets are left";
                 return;
         }
     }

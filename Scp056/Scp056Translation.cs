@@ -15,4 +15,10 @@ public class Scp056Translation : Translations<Scp056Translation>
     public string Killed056 { get; set; } = "<color=blue><b>You have killed</b></color> <color=red><b>SCP</b></color> <color=black><b>056</b></color>";
 
     public string KilledBy056 { get; set; } = "<color=blue><b>You are killed by</b></color> <color=red><b>SCP</b></color> <color=black><b>056</b></color>";
+
+    public string ChangedRole { get; set; } = "You have successfully changed your Role to %role%";
+
+    public string SelectRole { get; set; } = "You can use one of these Roles:";
+
+    public string NotScp056 { get; set; } = "You are not SCP-056";
 }

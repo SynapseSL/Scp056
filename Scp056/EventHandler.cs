@@ -1,4 +1,7 @@
 ﻿using System.Linq;
+using Interactables.Interobjects.DoorUtils;
+using Neuron.Core.Logging;
+using Synapse3.SynapseModule.Enums;
 using Synapse3.SynapseModule.Events;
 using Synapse3.SynapseModule.Player;
 using UnityEngine;
@@ -23,8 +26,9 @@ public class EventHandler
 
     private void FirstSpawn(FirstSpawnEvent ev)
     {
+        if (!_plugin.Config.EnableDefaultSpawnBehaviour) return;
         if (ev.PlayerAndRoles.Count < _plugin.Config.RequiredPlayers) return;
-        if (UnityEngine.Random.Range(1f, 100f) > _plugin.Config.SpawnChance) return;
+        if (Random.Range(1f, 100f) > _plugin.Config.SpawnChance) return;
 
         var possiblePlayers = _plugin.Config.ReplaceScp
             ? ev.PlayerAndRoles.Where(x => IsScpID(x.Value))
@@ -45,9 +49,9 @@ public class EventHandler
         ev.PlayerAndRoles[pair.Key] = 56;
     }
 
-    private bool IsScpID(uint id) => id is (int)RoleType.Scp173 or (int)RoleType.Scp049 or (int)RoleType.Scp0492
-        or (int)RoleType.Scp079 or (int)RoleType.Scp096 or (int)RoleType.Scp106 or (int)RoleType.Scp93953
-        or (int)RoleType.Scp93989;
+    private bool IsScpID(uint id) => id is (uint)RoleType.Scp173 or (uint)RoleType.Scp049 or (uint)RoleType.Scp0492
+        or (uint)RoleType.Scp079 or (uint)RoleType.Scp096 or (uint)RoleType.Scp106 or (uint)RoleType.Scp93953
+        or (uint)RoleType.Scp93989;
 
     private void Death(DeathEvent ev)
     {
@@ -62,32 +66,47 @@ public class EventHandler
     private void KeyPress(KeyPressEvent ev)
     {
         if (ev.Player.RoleID != 56) return;
-
         RoleType role;
 
         switch (ev.KeyCode)
         {
-            case KeyCode.Alpha5:
+            case KeyCode.Keypad1:
                 role = RoleType.ClassD;
                 break;
 
-            case KeyCode.Alpha6:
+            case KeyCode.Keypad2:
                 role = RoleType.Scientist;
                 break;
 
-            case KeyCode.Alpha7:
+            case KeyCode.Keypad3:
                 role = RoleType.FacilityGuard;
                 break;
 
-            case KeyCode.Alpha8:
+            case KeyCode.Keypad4:
                 role = RoleType.NtfSergeant;
                 break;
 
-            case KeyCode.Alpha9:
-                role = RoleType.ChaosRifleman;
+            case KeyCode.Keypad5:
+                role = RoleType.ChaosRepressor;
+                break;
+            
+            case KeyCode.Keypad6:
+                role = RoleType.Scp049;
+                break;
+            
+            case KeyCode.Keypad7:
+                role = RoleType.Scp096;
+                break;
+            
+            case KeyCode.Keypad8:
+                role = RoleType.Scp173;
                 break;
 
-            case KeyCode.Alpha0:
+            case KeyCode.Keypad9:
+                role = RoleType.Scp93953;
+                break;
+
+            case KeyCode.Keypad0:
                 var targets = _player
                     .GetPlayers(x => x.TeamID is (uint)Team.MTF or (uint)Team.CDP or (uint)Team.RSC).Count;
 
@@ -97,7 +116,7 @@ public class EventHandler
 
             default: return;
         }
-
+        
         (ev.Player.CustomRole as Scp056PlayerScript)?.SwapRole(role);
     }
 }
