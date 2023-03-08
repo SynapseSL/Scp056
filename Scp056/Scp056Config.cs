@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using Neuron.Core.Meta;
+using PlayerRoles;
 using Syml;
 using Synapse3.SynapseModule.Config;
 using Synapse3.SynapseModule.Map.Rooms;
 using Synapse3.SynapseModule.Role;
 using UnityEngine;
+using YamlDotNet.Serialization;
 
 namespace Scp056;
 
@@ -19,10 +21,9 @@ public class Scp056Config : IDocumentSection
     {
         Health = 200,
         MaxHealth = 200,
-        VisibleRole = RoleType.FacilityGuard,
-        Role = RoleType.Tutorial,
-        Unit = "Human SCP",
-        UnitId = 7,
+        VisibleRole = RoleTypeId.FacilityGuard,
+        Role = RoleTypeId.Tutorial,
+        OwnRole = RoleTypeId.None,
         ArtificialHealth = 0,
         MaxArtificialHealth = 75,
         EscapeRole = 0,
@@ -74,26 +75,25 @@ public class Scp056Config : IDocumentSection
         }
     };
 
-    public List<RoleType> AllowedRoles { get; set; } = new List<RoleType>()
+    public List<RoleTypeId> AllowedRoles { get; set; } = new List<RoleTypeId>()
     {
-        RoleType.ClassD,
-        RoleType.Scientist,
-        RoleType.FacilityGuard,
-        RoleType.ChaosConscript,
-        RoleType.ChaosMarauder,
-        RoleType.ChaosRepressor,
-        RoleType.ChaosRifleman,
-        RoleType.NtfCaptain,
-        RoleType.NtfPrivate,
-        RoleType.NtfSergeant,
-        RoleType.NtfSpecialist,
-        RoleType.Scp049,
-        RoleType.Scp096,
-        RoleType.Scp106,
-        RoleType.Scp173,
-        RoleType.Scp0492,
-        RoleType.Scp93953,
-        RoleType.Scp93989
+        RoleTypeId.ClassD,
+        RoleTypeId.Scientist,
+        RoleTypeId.FacilityGuard,
+        RoleTypeId.ChaosConscript,
+        RoleTypeId.ChaosMarauder,
+        RoleTypeId.ChaosRepressor,
+        RoleTypeId.ChaosRifleman,
+        RoleTypeId.NtfCaptain,
+        RoleTypeId.NtfPrivate,
+        RoleTypeId.NtfSergeant,
+        RoleTypeId.NtfSpecialist,
+        RoleTypeId.Scp049,
+        RoleTypeId.Scp096,
+        RoleTypeId.Scp106,
+        RoleTypeId.Scp173,
+        RoleTypeId.Scp0492,
+        RoleTypeId.Scp939
     };
 
     [Description("If Enabled Scp056 can Hurt Scps(Guns,Generator,FemurBreaker,etc.)")]
@@ -111,17 +111,16 @@ public class Scp056Config : IDocumentSection
     [Description("If Enabled a Scp will become Scp056.If Disabled a Human will become Scp056")]
     public bool ReplaceScp { get; set; } = false;
 
-    [Description("Prevnts the scenario that only 056 and 079 spawns together")]
-    public bool Replace079 { get; set; } = true;
-    
+    [Serializable]
     public class Scp056RoleConfiguration : IAbstractRoleConfig
     {
-        [Description("The Role that is Visible for other SCP's")]
-        public RoleType VisibleRoleForScp { get; set; } = RoleType.Scp0492;
         [Description("The Role that the Player spawns as")]
-        public RoleType Role { get; set; }
+        public RoleTypeId Role { get; set; }
         [Description("The Role that is Visible for other Humans at the start of the Round")]
-        public RoleType VisibleRole { get; set; }
+        public RoleTypeId VisibleRole { get; set; }
+
+        public RoleTypeId OwnRole { get; set; }
+
         [Description("The Role SCP-056 becomes when he Escapes")]
         public uint EscapeRole { get; set; }
         public float Health { get; set; }
@@ -130,10 +129,11 @@ public class Scp056Config : IDocumentSection
         public float MaxArtificialHealth { get; set; }
         public RoomPoint[] PossibleSpawns { get; set; }
         public SerializedPlayerInventory[] PossibleInventories { get; set; }
-        [Description("The UnitId which should be assigned to SCP-056 (like the Unit list for Mtf's at the top right which would be 2)")]
-        public byte UnitId { get; set; }
-        [Description("The Unit Name of SCP-056")]
-        public string Unit { get; set; }
+
+        public SerializedVector3 Scale { get; set; } = new(1f, 1f, 1f);
+        
+        [YamlIgnore]
+        public bool Hierarchy => false;
     }
 }
 

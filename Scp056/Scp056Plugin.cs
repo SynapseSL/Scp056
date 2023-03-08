@@ -3,6 +3,7 @@ using Synapse3.SynapseModule;
 
 namespace Scp056;
 
+[HeavyModded]
 [Plugin(
     Name = "SCP-056",
     Author = "Dimenzio",
@@ -11,11 +12,8 @@ namespace Scp056;
 )]
 public class Scp056Plugin : ReloadablePlugin<Scp056Config, Scp056Translation>
 {
-    public EventHandler EventHandler { get; private set; }
-
     public override void EnablePlugin()
     {
-        EventHandler = Synapse.GetAndBind<EventHandler>();
         Logger.Info("Loaded SCP-056 Plugin");
     }
 }
