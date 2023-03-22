@@ -26,7 +26,7 @@ public class Scp056Config : IDocumentSection
         OwnRole = RoleTypeId.None,
         ArtificialHealth = 0,
         MaxArtificialHealth = 75,
-        EscapeRole = 0,
+        EscapeRole = uint.MaxValue,
         PossibleSpawns = new[]
         {
             new RoomPoint("HeavyArmory", new Vector3(-1.8f, 1.35f, -0f), new Vector3(0f, -90f, 0f))
@@ -129,11 +129,16 @@ public class Scp056Config : IDocumentSection
         public float MaxArtificialHealth { get; set; }
         public RoomPoint[] PossibleSpawns { get; set; }
         public SerializedPlayerInventory[] PossibleInventories { get; set; }
-
         public SerializedVector3 Scale { get; set; } = new(1f, 1f, 1f);
         
         [YamlIgnore]
         public bool Hierarchy => false;
+        [YamlIgnore]
+        public bool CustomDisplay => false;
+        [YamlIgnore]
+        public string CustomUnitName => "";
+        [YamlIgnore]
+        public bool UseCustomUnitName => false;
     }
 }
 

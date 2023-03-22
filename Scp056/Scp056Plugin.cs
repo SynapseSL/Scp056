@@ -8,7 +8,7 @@ namespace Scp056;
     Name = "SCP-056",
     Author = "Dimenzio",
     Description = "Adds the Role SCP-056 to the game",
-    Version = "3.0.0"
+    Version = "3.0.1"
 )]
 public class Scp056Plugin : ReloadablePlugin<Scp056Config, Scp056Translation>
 {
