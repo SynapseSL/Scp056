@@ -5,6 +5,7 @@ using Ninject;
 using PlayerRoles;
 using PlayerRoles.RoleAssign;
 using Synapse3.SynapseModule;
+using Synapse3.SynapseModule.Enums;
 using Synapse3.SynapseModule.Events;
 using Synapse3.SynapseModule.Player;
 using UnityEngine;
@@ -26,7 +27,7 @@ public class EventHandler : Listener
         if (!Plugin.Config.EnableDefaultSpawnBehaviour) return;
         if (Player.Players.Count < Plugin.Config.RequiredPlayers) return;
         if (Random.Range(1f, 100f) > Plugin.Config.SpawnChance) return;
-        if(Plugin.Config.ReplaceScp && ev.AmountOfScpSpawns <= 0) return;
+        if (Plugin.Config.ReplaceScp && ev.AmountOfScpSpawns <= 0) return;
 
         var possiblePlayers = Player.Players.Where(x => RoleAssigner.CheckPlayer(x.Hub)).ToArray();
         if (!possiblePlayers.Any()) return;
@@ -48,27 +49,28 @@ public class EventHandler : Listener
             ev.Player.SendWindowMessage(Plugin.Translation.Get(ev.Player).KilledBy056);
     }
 
-    //TODO: Implement SCP Chat ability
-    /*
-    [EventHandler]
-    public void SpeakEvent(SpeakEvent ev)
-    {
-        if (ev.Player.RoleID == 56 && (ev.Player.CustomRole as Scp056PlayerScript)?.ScpChat == true)
-        {
-            SynapseLogger<Scp056Plugin>.Warn("SpeakEvent");
-            ev.Channel = VoiceChatChannel.ScpChat;
-        }
-    }
-
     [EventHandler]
     public void SpeakPlayerEvent(SpeakToPlayerEvent ev)
     {
-        if (ev.Receiver.RoleID == 56 && ev.Player.Hub.IsSCP() &&
-            (ev.Player.CustomRole as Scp056PlayerScript)?.ScpChat == true)
+        if (ev.Player.RoleID == 56)
         {
-            SynapseLogger<Scp056Plugin>.Warn("SpeakEventPlayer");
-            ev.Channel = VoiceChatChannel.ScpChat;
+            ev.Channel = VoiceChatChannel.Proximity;
+            if (ev.Player.CustomRole is Scp056PlayerScript { ScpChat: true })
+            {
+                ev.Channel = ev.Receiver.TeamID == 0 ? VoiceChatChannel.RoundSummary : VoiceChatChannel.None;
+            }
+            else if(ev.Player.FakeRoleManager.VisibleRole.GetTeam() == Team.SCPs)
+            {
+                if ((ev.Player.Position - ev.Receiver.Position).sqrMagnitude > 100)
+                    ev.Channel = VoiceChatChannel.None;
+            }
+        }
+
+        if (ev.Receiver.RoleID == 56 && ev.OriginalChannel == VoiceChatChannel.ScpChat)
+        {
+            ev.Channel = VoiceChatChannel.Proximity;
         }
     }
-    */
+    
+    //TODO: Add an HotKey for SCP-VoiceChat and make SCP-056 a Zombie for all SCP's
 }

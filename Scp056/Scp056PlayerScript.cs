@@ -3,6 +3,7 @@ using Neuron.Core.Meta;
 using PlayerRoles;
 using Synapse3.SynapseModule.Enums;
 using Synapse3.SynapseModule.Map;
+using Synapse3.SynapseModule.Player;
 using Synapse3.SynapseModule.Role;
 
 namespace Scp056;
@@ -36,12 +37,15 @@ public class Scp056PlayerScript : SynapseAbstractRole
     {
         Player.SendWindowMessage(_plugin.Translation.Get(Player).Spawn.Replace("\\n", "\n"));
         RemoveCustomDisplay();
+        //This needs a Synapse update since it won't update enough
+        //Player.FakeRoleManager.VisibleRoleCondition[SeeAsZombieCondition] = new RoleInfo(RoleTypeId.Scp0492, Player);
     }
 
     protected override void OnDeSpawn(DeSpawnReason reason)
     {
         if (reason <= DeSpawnReason.Leave)
             _cassie.AnnounceScpDeath("056", CassieSettings.Glitched, CassieSettings.Noise);
+        //Player.FakeRoleManager.VisibleRoleCondition.Remove(SeeAsZombieCondition);
     }
 
     public void SwapRole(RoleTypeId role)
@@ -51,4 +55,6 @@ public class Scp056PlayerScript : SynapseAbstractRole
         Player.FakeRoleManager.VisibleRole = role;
         Player.SendHint(_plugin.Translation.ChangedRole.Replace("%role%", role.ToString()));
     }
+
+    public bool SeeAsZombieCondition(SynapsePlayer player) => player.TeamID == 0;
 }

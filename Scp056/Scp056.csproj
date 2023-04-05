@@ -36,14 +36,14 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="0Harmony, Version=2.10.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\HarmonyX.2.10.0\lib\net45\0Harmony.dll</HintPath>
+    <Reference Include="0Harmony, Version=2.2.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Lib.Harmony.2.2.2\lib\net48\0Harmony.dll</HintPath>
     </Reference>
     <Reference Include="Assembly-CSharp, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SynapseSL.3.0.0-pre1.1\lib\net48\Assembly-CSharp.dll</HintPath>
+      <HintPath>..\packages\SynapseSL.3.0.0-pre1.2\lib\net48\Assembly-CSharp.dll</HintPath>
     </Reference>
     <Reference Include="Assembly-CSharp-firstpass, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SynapseSL.3.0.0-pre1.1\lib\net48\Assembly-CSharp-firstpass.dll</HintPath>
+      <HintPath>..\packages\SynapseSL.3.0.0-pre1.2\lib\net48\Assembly-CSharp-firstpass.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=6.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.6.0.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
@@ -67,7 +67,7 @@
       <HintPath>..\packages\Microsoft.Extensions.Primitives.6.0.0\lib\net461\Microsoft.Extensions.Primitives.dll</HintPath>
     </Reference>
     <Reference Include="Mirror, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SynapseSL.3.0.0-pre1.1\lib\net48\Mirror.dll</HintPath>
+      <HintPath>..\packages\SynapseSL.3.0.0-pre1.2\lib\net48\Mirror.dll</HintPath>
     </Reference>
     <Reference Include="Mono.Cecil, Version=0.11.4.0, Culture=neutral, PublicKeyToken=50cebf1cceb9d05e, processorArchitecture=MSIL">
       <HintPath>..\packages\Mono.Cecil.0.11.4\lib\net40\Mono.Cecil.dll</HintPath>
@@ -88,17 +88,17 @@
       <HintPath>..\packages\MonoMod.Utils.22.3.23.4\lib\net452\MonoMod.Utils.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib" />
-    <Reference Include="Neuron.Core, Version=1.0.0.5, Culture=neutral, processorArchitecture=Amd64">
-      <HintPath>..\packages\NeuronModding.Core.1.0.0.5\lib\netstandard2.0\Neuron.Core.dll</HintPath>
+    <Reference Include="Neuron.Core, Version=1.0.2.0, Culture=neutral, processorArchitecture=Amd64">
+      <HintPath>..\packages\NeuronModding.Core.1.0.2\lib\netstandard2.0\Neuron.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Neuron.Modules.Commands, Version=1.0.0.5, Culture=neutral, processorArchitecture=Amd64">
-      <HintPath>..\packages\NeuronModding.Modules.Commands.1.0.0.5\lib\netstandard2.0\Neuron.Modules.Commands.dll</HintPath>
+    <Reference Include="Neuron.Modules.Commands, Version=1.0.2.0, Culture=neutral, processorArchitecture=Amd64">
+      <HintPath>..\packages\NeuronModding.Modules.Commands.1.0.2\lib\netstandard2.0\Neuron.Modules.Commands.dll</HintPath>
     </Reference>
-    <Reference Include="Neuron.Modules.Configs, Version=1.0.0.5, Culture=neutral, processorArchitecture=Amd64">
-      <HintPath>..\packages\NeuronModding.Modules.Configs.1.0.0.5\lib\netstandard2.0\Neuron.Modules.Configs.dll</HintPath>
+    <Reference Include="Neuron.Modules.Configs, Version=1.0.2.0, Culture=neutral, processorArchitecture=Amd64">
+      <HintPath>..\packages\NeuronModding.Modules.Configs.1.0.2\lib\netstandard2.0\Neuron.Modules.Configs.dll</HintPath>
     </Reference>
-    <Reference Include="Neuron.Modules.Patcher, Version=1.0.0.5, Culture=neutral, processorArchitecture=Amd64">
-      <HintPath>..\packages\NeuronModding.Modules.Patcher.1.0.0.5\lib\netstandard2.0\Neuron.Modules.Patcher.dll</HintPath>
+    <Reference Include="Neuron.Modules.Patcher, Version=1.0.2.0, Culture=neutral, processorArchitecture=Amd64">
+      <HintPath>..\packages\NeuronModding.Modules.Patcher.1.0.2\lib\netstandard2.0\Neuron.Modules.Patcher.dll</HintPath>
     </Reference>
     <Reference Include="Ninject, Version=3.3.6.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
       <HintPath>..\packages\Ninject.3.3.6\lib\net45\Ninject.dll</HintPath>
@@ -107,7 +107,7 @@
       <HintPath>..\packages\SYML.1.0.2\lib\netstandard2.0\SYML.dll</HintPath>
     </Reference>
     <Reference Include="Synapse3.SynapseModule, Version=3.0.0.0, Culture=neutral, processorArchitecture=Amd64">
-      <HintPath>..\packages\SynapseSL.3.0.0-pre1.1\lib\net48\Synapse3.SynapseModule.dll</HintPath>
+      <HintPath>..\packages\SynapseSL.3.0.0-pre1.2\lib\net48\Synapse3.SynapseModule.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
@@ -136,19 +136,20 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
     <Reference Include="UnityEngine, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SynapseSL.3.0.0-pre1.1\lib\net48\UnityEngine.dll</HintPath>
+      <HintPath>..\packages\SynapseSL.3.0.0-pre1.2\lib\net48\UnityEngine.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SynapseSL.3.0.0-pre1.1\lib\net48\UnityEngine.CoreModule.dll</HintPath>
+      <HintPath>..\packages\SynapseSL.3.0.0-pre1.2\lib\net48\UnityEngine.CoreModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.PhysicsModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SynapseSL.3.0.0-pre1.1\lib\net48\UnityEngine.PhysicsModule.dll</HintPath>
+      <HintPath>..\packages\SynapseSL.3.0.0-pre1.2\lib\net48\UnityEngine.PhysicsModule.dll</HintPath>
     </Reference>
     <Reference Include="YamlDotNet, Version=11.0.0.0, Culture=neutral, PublicKeyToken=ec19458f3c15af5e, processorArchitecture=MSIL">
       <HintPath>..\packages\YamlDotNet.11.2.1\lib\net45\YamlDotNet.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="KeyBind\ScpVoiceChatBind.cs" />
     <Compile Include="KeyBind\SwapClasses.cs" />
     <Compile Include="KeyBind\Scp056SwapBind.cs" />
     <Compile Include="KeyBind\TargetBind.cs" />
